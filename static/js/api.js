@@ -3,16 +3,16 @@ let y = n.getFullYear();
 let m = n.getMonth() + 1;
 let d = n.getDate();
 document.getElementById("date").innerHTML = "Current date: " + d + "/" + m + "/" + y;
+const apiKey = process.env.API_KEY;
 
 let weather = {
-    apiKey: "fa7b439db822c60b3f95528568a70b0b", // free api key, poggers.
     fetchWeather: function (city) {
         fetch(
             "https://api.openweathermap.org/data/2.5/weather?q=" +
             city +
             "&cnt=" + d +
             "&units=metric&appid=" +
-            this.apiKey
+            apiKey
         )
             .then((response) => {
                 if (!response.ok) {
