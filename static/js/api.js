@@ -1,29 +1,19 @@
+/**
+ * Copyright (c) 2024 Vili
+ * Licensed under the GPL-3.0
+ */
+
 let n = new Date();
 let y = n.getFullYear();
 let m = n.getMonth() + 1;
 let d = n.getDate();
 document.getElementById("date").innerHTML = "Current date: " + d + "/" + m + "/" + y;
-const apiKey = process.env.API_KEY;
 
 let weather = {
     fetchWeather: function (city) {
-        fetch(
-            "https://api.openweathermap.org/data/2.5/weather?q=" +
-            city +
-            "&cnt=" + d +
-            "&units=metric&appid=" +
-            apiKey
-        )
-            .then((response) => {
-                if (!response.ok) {
-                    alert("No weather data found!");
-                    throw new Error("No weather data found");
-                }
-                return response.json();
-            })
-            .then((data) => this.displayWeather(data));
-
-        console.log(response.json())
+        fetch('/api/weather?city=' + city)
+            .then(response => response.json())
+            .then(data => this.displayWeather(data));
     },
     displayWeather: function (data) {
         const { name } = data;
@@ -66,23 +56,12 @@ document.querySelector(".search-bar").addEventListener("keyup", function (event)
 // Get user's current city and fetch weather from there.
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
-        fetch( // Fetch the city name from the API
-            "https://api.openweathermap.org/data/2.5/weather?lat=" +
-            position.coords.latitude +
-            "&lon=" +
-            position.coords.longitude +
-            "&units=metric&appid=" +
-            weather.apiKey
-        ).then((response) => {
-            if (!response.ok) {
-                alert("No weather data found!");
-                throw new Error("No weather data found");                
-            }
-            return response.json();
-        }).then((data) => {
-            const {name} = data;
-            weather.fetchWeather(name);
-        });
+        fetch('/api/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude)
+            .then(response => response.json())
+            .then(data => {
+                const {name} = data;
+                weather.fetchWeather(name);
+            });
     });
 } else {
     alert("Geolocation is not supported by this browser. Fetching weather from default location.");

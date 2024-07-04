@@ -1,0 +1,29 @@
+{
+  "name": "todaysweather",
+  "version": "1.0.0",
+  "description": "Tells you the current weather in any city!",
+  "main": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vil/TodaysWeather.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Vili",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/vil/TodaysWeather/issues"
+  },
+  "homepage": "https://github.com/vil/TodaysWeather#readme",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security"
+  }
+}
